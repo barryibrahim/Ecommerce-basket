@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}Mon Profil
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-10 col-md-8 col-lg-6 text-primary">
+                <h1 class="text-center text-primary mt-4 pt-4 display-4 fw-bold">
+                    Mon Profil
+                </h1>
+
+                <ul class="list-group mt-4 mb-5">
+                    <li class="list-group-item">
+                        <strong>Nom :</strong>
+                        {{ utilisateur.nom }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Prénom :</strong>
+                        {{ utilisateur.prenom }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Email :</strong>
+                        {{ utilisateur.email }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Date d'inscription :</strong>
+                        {{ utilisateur.dateinscription | date("d-m-Y H:i:s") }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Rôle :</strong>
+                        {% if 'ROLE_ADMIN' in utilisateur.roles %}
+                            <span class="badge bg-success">Administrateur</span>
+                        {% elseif 'ROLE_MODERATOR' in utilisateur.roles %}
+                            <span class="badge bg-warning">Modérateur</span>
+                        {% else %}
+                            <span class="badge bg-primary">Utilisateur</span>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
