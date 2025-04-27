@@ -82,24 +82,26 @@ final class ProduitController extends AbstractController
     {
         $referer = $request->headers->get('referer');
 
-        // Si le produit existe bien
         if ($produit) {
-            $user = $this->getUser(); // on récupère l'utilisateur connecté
+            $user = $this->getUser();
 
             if (!$user->getProduits()->contains($produit)) {
-                // Si le produit n'est pas dans ses favoris : on l'ajoute
                 $user->addProduit($produit);
             } else {
-                // Sinon : on le retire
                 $user->removeProduit($produit);
             }
-
-            // On persiste les changements
             $em->persist($user);
             $em->flush();
         }
-
-        // On redirige vers la page précédente ou l'accueil
         return $this->redirect($referer ?? $this->generateUrl('app_accueil'));
+    }
+    #[Route('/favoris', name: 'app_favoris')]
+    public function favoris(): Response
+    {
+       
+
+        return $this->render('produit/favoris.html.twig', [
+           
+        ]);
     }
 }

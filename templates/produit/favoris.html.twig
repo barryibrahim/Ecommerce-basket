@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Produits Favoris
+{% endblock %}
+
+{% block body %}
+	<h1>Mes Produits Favoris</h1>
+
+	{% if produits|length > 0 %}
+		<ul>
+			{% for produit in produits %}
+				<li>
+					<h2>{{ produit.nom }}</h2>
+					<p>{{ produit.description }}</p>
+					<p>{{ produit.prix }}€</p>
+				</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>Vous n'avez pas de produits favoris.</p>
+	{% endif %}
+{% endblock %}
