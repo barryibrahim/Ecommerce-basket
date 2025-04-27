@@ -98,10 +98,11 @@ final class ProduitController extends AbstractController
     #[Route('/favoris', name: 'app_favoris')]
     public function favoris(): Response
     {
-       
+        $user = $this->getUser();
+        $produitsFavoris = $user->getProduits(); 
 
         return $this->render('produit/favoris.html.twig', [
-           
+            'produits' => $produitsFavoris,
         ]);
     }
 }

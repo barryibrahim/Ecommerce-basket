@@ -84,12 +84,24 @@ is_granted('IS_AUTHENTICATED_FULLY') %}
 								<a class="nav-link text-white" href="{{path('app_liste_contacts')}}">Liste des contacts</a>
 							</li>
 
+
 						{% endif %}
+						{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('app_favoris') }}">
+									<i class="bi bi-heart{{ app.user.produits|length > 0 ? '-fill text-danger' : '' }}"></i>
+									{% if app.user.produits|length > 0 %}
+										<span class="badge badge-danger">{{ app.user.produits|length }}</span>
+									{% endif %}
+								</a>
+							</li>
+						{% endif %}
+
 						<li class="nav-item">
 							<a class="nav-link" href="{{path('app_logout')}}">
 								{{app.user.email}}
 								<i class="bi
-																																													bi-x-circle-fill"></i>
+																																																						bi-x-circle-fill"></i>
 							</a>
 						</li>
 					{% endif %}
