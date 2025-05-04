@@ -39,14 +39,6 @@ final class ProduitController extends AbstractController
 
         ]);
     }
-    #[Route('/panier', name: 'app_panier')]
-    public function panier(ProduitRepository $produitRepository): Response
-    {
-        $produits = $produitRepository->findAll();
-        return $this->render('produit/afficher-panier.html.twig', [
-            'produits' => $produits
-        ]);
-    }
     #[Route('/private-modifier-produit/{id}', name: 'app_modifier_produit')]
 
     public function modifierProduit(Request $request, Produit $produit, EntityManagerInterface $em): Response
@@ -100,7 +92,6 @@ final class ProduitController extends AbstractController
     {
         $user = $this->getUser();
         $produitsFavoris = $user->getProduits(); 
-
         return $this->render('produit/favoris.html.twig', [
             'produits' => $produitsFavoris,
         ]);

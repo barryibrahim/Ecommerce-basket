@@ -15,7 +15,7 @@
 				<div class="col">
 					<div
 						class="card">
-						<!-- Vérifie si le produit a une image -->
+						
 						{% if produit.image %}
 							<img src="{{ asset('images/produit/' ~ produit.image) }}" class="card-img-top" alt="{{ produit.nom }}">
 						{% else %}
@@ -37,6 +37,7 @@
 									{% endif %}
 								{% endif %}
 							</a>
+							<a href="{{ path('app_ajout_panier', {'id': produit.id}) }}"> <i class="bi bi-cart"></i></a>
 
 						</div>
 					</div>

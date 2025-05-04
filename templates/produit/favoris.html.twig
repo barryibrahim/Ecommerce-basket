@@ -4,23 +4,43 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container-fluid">
-		<div class="row justify-content-center">
-			<div class="col-10 text-primary">
-				<h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold">
-					Mes Produits Favoris</h1>
+    <style>
+        .custom-img {
+            max-width: 200px; /* Ajustez cette valeur selon vos besoins */
+            height: auto; /* Maintient le ratio d'aspect */
+        }
+        ul {
+            list-style-type: none; /* Supprime les puces */
+            padding: 0; /* Supprime le padding */
+        }
+        li {
+            margin-bottom: 20px; /* Ajoute un espacement entre les éléments */
+        }
+    </style>
 
-				{% if produits|length > 0 %}
-					<ul>
-						{% for produit in produits %}
-							<li>
-								<h2>{{ produit.nom }}</h2>
-								<p>{{ produit.description }}</p>
-								<p>{{ produit.prix }}€</p>
-							</li>
-						{% endfor %}
-					</ul>
-				{% else %}
-					<p>Vous n'avez pas de produits favoris.</p>
-				{% endif %}
-			{% endblock %}
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-10 text-primary">
+                <h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold">
+                    Mes Produits Favoris</h1>
+
+                {% if produits|length > 0 %}
+                    <ul>
+                        {% for produit in produits %}
+                            <li>
+                                <h2>{{ produit.nom }}</h2>
+                                <p>{{ produit.description }}</p>
+                                <p>{{ produit.prix }}€</p>
+                                {% if produit.image %}
+                                    <img src="{{ asset('images/produit/' ~ produit.image) }}" class="card-img-top img-fluid custom-img" alt="{{ produit.nom }}">
+                                {% else %}
+                                    <img src="{{ asset('images/default.jpg') }}" class="card-img-top img-fluid custom-img" alt="Image par défaut">
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -37,9 +37,16 @@ class Produit
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'produits')]
     private Collection $users;
 
+    /**
+     * @var Collection<int, Ajouter>
+     */
+    #[ORM\OneToMany(targetEntity: Ajouter::class, mappedBy: 'produit', orphanRemoval: true)]
+    private Collection $ajouters;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->ajouters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -127,6 +134,36 @@ class Produit
     public function removeUser(User $user): static
     {
         $this->users->removeElement($user);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ajouter>
+     */
+    public function getAjouters(): Collection
+    {
+        return $this->ajouters;
+    }
+
+    public function addAjouter(Ajouter $ajouter): static
+    {
+        if (!$this->ajouters->contains($ajouter)) {
+            $this->ajouters->add($ajouter);
+            $ajouter->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAjouter(Ajouter $ajouter): static
+    {
+        if ($this->ajouters->removeElement($ajouter)) {
+            // set the owning side to null (unless already changed)
+            if ($ajouter->getProduit() === $this) {
+                $ajouter->setProduit(null);
+            }
+        }
 
         return $this;
     }

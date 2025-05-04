@@ -51,6 +51,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Produit::class, mappedBy: 'users')]
     private Collection $produits;
 
+    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Panier $panier = null;
+
     public function __construct()
     {
         $this->produits = new ArrayCollection();
@@ -190,6 +193,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->produits->removeElement($produit)) {
             $produit->removeUser($this);
         }
+
+        return $this;
+    }
+
+    public function getPanier(): ?Panier
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(?Panier $panier): static
+    {
+        $this->panier = $panier;
 
         return $this;
     }

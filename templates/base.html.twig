@@ -28,35 +28,16 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{path('app_produit')}}">Produit</a>
 						</li>
-						<li class="nav-item"></li>
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('app_liste_produits')}}">Liste-Produits</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{{path('app_panier')}}">Panier</a>
-						</li>
 						<a class="nav-link" href="{{path('app_contact')}}">Contact</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{path('app_liste_contacts')}}">Liste-Contacts</a>
-					</li>
-
+				
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#">Action</a>
-							<a class="dropdown-item" href="#">Another action</a>
-							<a class="dropdown-item" href="#">Something else here</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Separated link</a>
-						</div>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Utilisateurs</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="{{ path('app_liste_utilisateurs') }}">Liste</a>
-							<a class="dropdown-item" href="#">Another action</a>
-							<a class="dropdown-item" href="#">Something else here</a>
+							
+							<a class="nav-link" href="{{path('app_liste_produits')}}">Liste-Produits</a>
+							<a class="nav-link" href="{{path('app_liste_contacts')}}">Liste-Contacts</a>
+							<a class="dropdown-item" href="{{path('app_liste_utilisateurs')}}">Liste-Utilisateurs</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="#">Separated link</a>
 						</div>
@@ -101,7 +82,7 @@ is_granted('IS_AUTHENTICATED_FULLY') %}
 							<a class="nav-link" href="{{path('app_logout')}}">
 								{{app.user.email}}
 								<i class="bi
-																																																						bi-x-circle-fill"></i>
+																																																															bi-x-circle-fill"></i>
 							</a>
 						</li>
 					{% endif %}

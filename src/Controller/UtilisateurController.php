@@ -9,7 +9,7 @@ use App\Repository\UserRepository;
 
 final class UtilisateurController extends AbstractController
 {
-    #[Route('/liste-utilisateur', name: 'app_liste_utilisateurs')]
+    #[Route('/mod-liste-utilisateur', name: 'app_liste_utilisateurs')]
     public function listeUtilisateurs(UserRepository $userRepository): Response
     {
         $users = $userRepository->findAll();
