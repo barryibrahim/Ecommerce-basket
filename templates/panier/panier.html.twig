@@ -4,4 +4,39 @@
 {% endblock %}
 
 {% block body %}
-	{% endblock %}
+
+
+	<div class="container-fluid">
+		<h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold">Votre Panier</h1>
+		<div class="row justify-content-center">
+			<div class="col-12 col-md-8 bg-white p-4 m-0 text-primary">
+				<div class="card-group row row-cols-3 row-cols-md-4 g-4">
+					{% if app.user.panier %}
+						{% for ajouter in app.user.panier.ajouters %}
+							<div class="col">
+								<div class="card">
+									<a href="{{ path('app_produit', {'id': ajouter.produit.id}) }}">
+										{% if ajouter.produit.image %}
+											<img src="{{ asset('images/produit/' ~ ajouter.produit.image) }}" class="card-img-top img-fluid custom-img">
+										{% else %}
+											<img src="{{ asset('images/default.jpg') }}" class="card-img-top img-fluid custom-img" alt="Image par défaut">
+										{% endif %}
+									</a>
+									<div class="card-body">
+										<h5 class="card-title">{{ ajouter.produit.nom | capitalize }}</h5>
+										<p class="card-text text-center">{{ ajouter.produit.prix }}€ TTC </p>
+										<h6 class="card-title">{{ ajouter.produit.description | capitalize }}</h6>
+										<h7 class="card-title">{{ ajouter.produit.stock | capitalize }}</h7>
+
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					{% else %}
+						<p>Aucun produit dans le panier.</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

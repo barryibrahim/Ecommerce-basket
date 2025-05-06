@@ -31,18 +31,27 @@
 									<td>{{ produit.description |capitalize }}</td>
 									<td>{{ produit.prix}}</td>
 									<td>{{ produit.stock}}</td>
-									<td><a href="{{path("app_modifier_produit",{'id':produit.id})}}"><i class="bi bi-pen-fill text-dark"></i></a></td>
-									<td><a href="{{path("app_supprimer_produit",{'id':produit.id})}}"><i class="bi bi-trash-fill text-dark"></i></a></td>
-									<td>{{ form_widget(form.produits[produit.id]) }}</td>
-								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-					{{ form_widget(form.supprimer) }}
-                    {{ form_end(form) }}
 
-				</div>
+									<td>
+										<a href="{{ path('app_modifier_produit', {'id': produit.id}) }}">
+											<i class="bi bi-pen-fill text-dark"></i>
+										</a>
+									</td>
+									<td>
+										<a href="{{ path('app_supprimer_produit', {'id': produit.id}) }}">
+											<i class="bi bi-trash-fill text-dark"></i>
+										</a>
+									</td>
+
+								<td>{{ form_widget(form.produits[produit.id]) }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				{{ form_widget(form.supprimer) }}
+				{{ form_end(form) }}
+
 			</div>
 		</div>
 	</div>
-{% endblock %}
+</div>{% endblock %}
