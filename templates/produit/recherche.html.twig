@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultat de recherche
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1 class="text-primary">Résultats de la recherche</h1>
+
+		{% if produits is empty %}
+			<div class="alert alert-warning mt-3">Aucun produit trouvé.</div>
+		{% else %}
+			<div class="row">
+				{% for produit in produits %}
+					<div class="col-md-4 mb-4">
+						<div class="card h-100">
+							<div class="card-body">
+								<h5 class="card-title">{{ produit.nom }}</h5>
+                                <h6 class="card-title">{{ produit.prix }}</h6>
+								<h7 class="card-title">{{ produit.description}}</h6>
+                                <h8 class="card-title">{{ produit.stock }}</h8>
+									
+								{% if produit.image %}
+									<img src="{{ asset('images/produit/' ~ produit.image) }}" class="card-img-top img-fluid custom-img" alt="{{ produit.nom }}">
+								{% else %}
+									<img src="{{ asset('images/default.jpg') }}" class="card-img-top img-fluid custom-img" alt="Image par défaut">
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

@@ -91,9 +91,25 @@ final class ProduitController extends AbstractController
     public function favoris(): Response
     {
         $user = $this->getUser();
-        $produitsFavoris = $user->getProduits(); 
+        $produitsFavoris = $user->getProduits();
         return $this->render('produit/favoris.html.twig', [
             'produits' => $produitsFavoris,
+        ]);
+    }
+    #[Route('/recherche', name: 'app_recherche')]
+    public function rechercheProduit(Request $request, ProduitRepository $produitRepository): Response
+    {
+        $motCle = $request->query->get('q');
+
+        $produits = $produitRepository->createQueryBuilder('p')
+            ->where('p.nom LIKE :motCle')
+            ->setParameter('motCle', '%' . $motCle . '%')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('produit/recherche.html.twig', [
+            'produits' => $produits,
+            'motCle' => $motCle,
         ]);
     }
 }

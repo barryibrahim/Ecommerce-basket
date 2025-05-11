@@ -28,17 +28,14 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{path('app_produit')}}">Produit</a>
 						</li>
+
 						<a class="nav-link" href="{{path('app_contact')}}">Contact</a>
 					</li>
-					<li class="nav-item">
-							<i class="bi bi-cart4"></i>
-							
-						</li>
-				
+
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
 						<div class="dropdown-menu">
-							
+
 							<a class="nav-link" href="{{path('app_liste_produits')}}">Liste-Produits</a>
 							<a class="nav-link" href="{{path('app_liste_contacts')}}">Liste-Contacts</a>
 							<a class="dropdown-item" href="{{path('app_liste_utilisateurs')}}">Liste-Utilisateurs</a>
@@ -48,9 +45,9 @@
 					</li>
 
 				</ul>
-				<form class="d-flex">
-					<input class="form-control me-sm-2" type="search" placeholder="Search">
-					<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+				<form class="d-flex" method="GET" action="{{ path('app_recherche') }}">
+					<input class="form-control me-sm-2" type="search" name="q" placeholder="Rechercher un produit">
+					<button class="btn btn-secondary my-2 my-sm-0" type="submit">Rechercher</button>
 				</form>
 				<ul class="navbar-nav me-auto">
 					{% if not
@@ -63,7 +60,14 @@ is_granted('IS_AUTHENTICATED_FULLY') %}
 							<a class="nav-link" href="{{path('app_register')}}">S'inscrire
 							</a>
 						</li>
-						
+						<a href="{{ path('app_panier') }}" class="btn btn-outline-light position-relative">
+							<i class="bi bi-cart"></i> 
+							{% if app.user and app.user.panier and app.user.panier.ajouters|length > 0 %}
+								<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+									{{ app.user.panier.ajouters|length }}
+								</span>
+							{% endif %}
+						</a>
 					{% else %}
 						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD')%}
 							<li class="nav-item">
@@ -87,7 +91,7 @@ is_granted('IS_AUTHENTICATED_FULLY') %}
 							<a class="nav-link" href="{{path('app_logout')}}">
 								{{app.user.email}}
 								<i class="bi
-																																																															bi-x-circle-fill"></i>
+																																																																																	bi-x-circle-fill"></i>
 							</a>
 						</li>
 					{% endif %}

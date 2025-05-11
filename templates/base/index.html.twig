@@ -5,22 +5,22 @@
 {% block body %}
 	<div class="contrainer-fluid">
 		<h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold">
-			<em>BALLONS DE BASKETBALL</sem>
+			<em>BALLONS DE BASKETBALL</em>
 		</h1>
 		<h2 class="text-center text-primary">
-			<em>Retrouvez une sélection des meilleurs ballons de basket</sem>
+			<em>Retrouvez une sélection des meilleurs ballons de basket</em>
 		</h2>
 		<div class="row justify-content-center">
 			{% for produit in produits %}
 				<div class="col">
-					<div
-						class="card">
-						
-						{% if produit.image %}
-							<img src="{{ asset('images/produit/' ~ produit.image) }}" class="card-img-top" alt="{{ produit.nom }}">
-						{% else %}
-							<img src="{{ asset('images/default.jpg') }}" class="card-img-top" alt="Image par défaut">
-						{% endif %}
+					<div class="card">
+						<a href="{{ path('app_produit_detail', { id: produit.id }) }} ">
+							{% if produit.image %}
+								<img src="{{ asset('images/produit/' ~ produit.image) }}" class="card-img-top" alt="{{ produit.nom }}">
+							{% else %}
+								<img src="{{ asset('images/default.jpg') }}" class="card-img-top" alt="Image par défaut">
+							{% endif %}
+						</a>
 
 						<div class="card-body">
 							<h5 class="card-title">{{ produit.nom }}</h5>
@@ -28,6 +28,7 @@
 							<p class="card-text">{{ produit.description }}</p>
 							<p class="card-text">Stock :
 								{{ produit.stock }}</p>
+
 							<a href="{{ path('app_aimer_produit', {'id': produit.id}) }}" class="heart-icon">
 								{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 									{% if produit in app.user.produits %}
@@ -37,7 +38,10 @@
 									{% endif %}
 								{% endif %}
 							</a>
-							<a href="{{ path('app_ajout_panier', {'id': produit.id}) }}"> <i class="bi bi-cart"></i></a>
+
+							<a href="{{ path('app_ajout_panier', {'id': produit.id}) }}">
+								<i class="bi bi-cart"></i> 
+							</a>
 
 						</div>
 					</div>

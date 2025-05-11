@@ -64,4 +64,17 @@ final class BaseController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    #[Route('/produit/{id}', name: 'app_produit_detail')]
+    public function produitDetail(int $id, ProduitRepository $produitRepository): Response
+    {
+        $produit = $produitRepository->find($id);
+
+        if (!$produit) {
+            throw $this->createNotFoundException('Produit non trouvé');
+        }
+
+        return $this->render('base/produit_detail.html.twig', [
+            'produit' => $produit,
+        ]);
+    }
 }
