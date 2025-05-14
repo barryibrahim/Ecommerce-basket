@@ -77,4 +77,15 @@ final class BaseController extends AbstractController
             'produit' => $produit,
         ]);
     }
+   
+    public function carrousel(ProduitRepository $produitRepository): Response
+    {
+        // Récupérer les 4 premiers produits triés par ID
+        $produits = $produitRepository->findBy([], ['id' => 'ASC'], 4);
+        
+        return $this->render('base/carroussel.html.twig', [
+            'produits' => $produits,
+        ]);
+    }
+    
 }

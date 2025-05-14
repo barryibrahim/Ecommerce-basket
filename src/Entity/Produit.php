@@ -43,6 +43,7 @@ class Produit
     #[ORM\OneToMany(targetEntity: Ajouter::class, mappedBy: 'produit', orphanRemoval: true)]
     private Collection $ajouters;
 
+   
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -167,4 +168,6 @@ class Produit
 
         return $this;
     }
+
+
 }
