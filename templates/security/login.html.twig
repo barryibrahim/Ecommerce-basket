@@ -3,6 +3,30 @@
 	{{parent()}}
 	Connectez-vous
 {% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		body {
+			background-color: #000;
+		}
+		.form-container {
+			min-height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 1rem;
+		}
+		.form-box {
+			background-color: #fff;
+			color: #333;
+			padding: 2rem;
+			border-radius: 0.5rem;
+			width: 100%;
+			max-width: 400px;
+			box-shadow: 0 0 10px rgba(255,255,255,0.1);
+		}
+	</style>
+{% endblock %}
 {% block body %}
 	<div class="container-fluid">
 		<h1 class="text-center text-primary mt-4 pt-4 display-1 fw-bold">

@@ -46,6 +46,26 @@ final class PanierController extends AbstractController
     #[Route('/private-panier', name: 'app_panier')]
     public function panier(): Response
     {
-       return $this->render('panier/panier.html.twig');
+        return $this->render('panier/panier.html.twig');
+    }
+    #[Route('/private-supprimer-du-panier/{id}', name: 'app_supprimer_du_panier')]
+    public function supprimerDuPanier(Produit $produit, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
+        $panier = $user->getPanier();
+
+        if ($panier) {
+            foreach ($panier->getAjouters() as $ajouter) {
+                if ($ajouter->getProduit()->getId() === $produit->getId()) {
+                    $panier->removeAjouter($ajouter); // Méthode dans l'entité Panier; pr supp-panier il faut la route et dans panier ajouter le lien-button
+                    $em->remove($ajouter);
+                    $em->flush();
+                    $this->addFlash('notice', 'Produit supprimé du panier');
+                    break;
+                }
+            }
+        }
+
+        return $this->redirectToRoute('app_panier');
     }
 }
